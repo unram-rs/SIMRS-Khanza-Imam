@@ -213,7 +213,7 @@ public class DlgKamarInap extends javax.swing.JDialog {
             }else if(i==7){
                 column.setPreferredWidth(150);
             }else if(i==8){
-                column.setPreferredWidth(75);
+                column.setPreferredWidth(130);
             }else if(i==9){
                 column.setPreferredWidth(90);
             }else if(i==10){
