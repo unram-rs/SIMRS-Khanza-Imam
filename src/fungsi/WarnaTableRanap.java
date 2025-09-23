@@ -11,7 +11,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class WarnaTableRanap extends DefaultTableCellRenderer {
-    public int kolom = 15;      // kolom Ttl. Biaya
+    public int kolom = 8;      // kolom tarif kamar
     public int statbayar = 20;  // kolom Status Bayar
     
     @Override
@@ -30,9 +30,18 @@ public class WarnaTableRanap extends DefaultTableCellRenderer {
             // ambil status bayar
             String status = table.getValueAt(row, statbayar).toString().trim();
 
-            // ambil biaya
-            String biayaStr = table.getValueAt(row, kolom).toString().replaceAll("[^\\d]", "");
-            long biaya = Long.parseLong(biayaStr);
+             // Ambil isi kolom Tarif Kamar, contoh: "525,000 (22,065,000)"
+            String tarifStr = table.getValueAt(row, kolom).toString();
+
+            // Ambil hanya angka dalam kurung
+            String biayaDalamKurung = "0";
+            int start = tarifStr.indexOf("(");
+            int end = tarifStr.indexOf(")");
+            if (start != -1 && end != -1 && end > start) {
+                biayaDalamKurung = tarifStr.substring(start + 1, end);
+            }
+
+            long biaya = Long.parseLong(biayaDalamKurung.replaceAll("[^\\d]", ""));
 
             // kondisi: status belum bayar + biaya > 3.000.000
             if (status.equalsIgnoreCase("Belum Bayar") && biaya > 3000000) {
